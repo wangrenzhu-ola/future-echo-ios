@@ -1,0 +1,262 @@
+{
+  "schema_version": "appfactory.coding_verification_ledger.v1",
+  "run_id": "goal-002-ae9818ec08",
+  "app_name": "Future Echo",
+  "repo_path": "/Users/wangrenzhu/work/future-echo-ios",
+  "repo_url": "https://github.com/wangrenzhu-ola/future-echo-ios",
+  "xcodeproj_ref": "/Users/wangrenzhu/work/future-echo-ios/FutureEcho.xcodeproj",
+  "pm_inputs_read": [
+    "/Users/wangrenzhu/.local/state/app-factory-command-center/factory_production_queue/factory-group-20260710110205-23acb0c5/pm-docs-batch-q-20260710110205-463938c0/PMAgent/product_goal_bundles/goal-002/goal_manifest.json",
+    "/Users/wangrenzhu/.local/state/app-factory-command-center/factory_production_queue/factory-group-20260710110205-23acb0c5/pm-docs-batch-q-20260710110205-463938c0/PMAgent/product_goal_bundles/goal-002/package_goal_map.md",
+    "/Users/wangrenzhu/.local/state/app-factory-command-center/factory_production_queue/factory-group-20260710110205-23acb0c5/pm-docs-batch-q-20260710110205-463938c0/PMAgent/product_goal_bundles/goal-002/acceptance_matrix.json",
+    "/Users/wangrenzhu/.local/state/app-factory-command-center/factory_production_queue/factory-group-20260710110205-23acb0c5/pm-docs-batch-q-20260710110205-463938c0/PMAgent/product_goal_bundles/goal-002/design_blueprint.md",
+    "/Users/wangrenzhu/.local/state/app-factory-command-center/factory_production_queue/factory-group-20260710110205-23acb0c5/pm-docs-batch-q-20260710110205-463938c0/PMAgent/product_goal_bundles/goal-002/current_version_requirements.md",
+    "/Users/wangrenzhu/.local/state/app-factory-command-center/factory_production_queue/factory-group-20260710110205-23acb0c5/pm-docs-batch-q-20260710110205-463938c0/PMAgent/product_goal_bundles/goal-002/design_qa_gates.md"
+  ],
+  "source_commits": [
+    "2d160b96eefcf8cebaa809cb5ee1cebfcbfbeb59",
+    "206027ab3754c551e69cf023d67f002e0a87b775",
+    "4ed015d7a2d8c7c80c653afedd67f2c1a23fdc81",
+    "a0a9b1dba232f2155b607a1b1b168e4ee601647f",
+    "7bac6240e02a7efab3cf53d22e5dbacfd8687ce0"
+  ],
+  "build_checks": [
+    {
+      "command": "swift test",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence_ref": "evidence/swift_test.log",
+      "summary": "8 tests passed."
+    },
+    {
+      "command": "xcodebuild -project FutureEcho.xcodeproj -scheme FutureEcho -destination generic/platform=iOS Simulator CODE_SIGNING_ALLOWED=NO build",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence_ref": "evidence/xcodebuild.log",
+      "summary": "BUILD SUCCEEDED."
+    }
+  ],
+  "runtime_checks": [
+    {
+      "command": "xcodebuild ... -only-testing:FutureEchoUITests/BaselineUITests/testPromisePauseWaitRevisitTrailAndDeletionSurviveRelaunch test",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence_ref": "evidence/xcodebuild_ui_core_flow.log",
+      "summary": "Promise creation, relaunch persistence, pause, Wait, Cooling Shelf revisit, Skip, trail reflection, cancel/delete behavior passed on iPhone 17 Pro simulator."
+    },
+    {
+      "command": "xcodebuild ... -only-testing:FutureEchoUITests/BaselineUITests/testPrivacyPremiumAndRecoverablePersistenceFailureAreVisible test",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence_ref": "evidence/xcodebuild_ui_privacy_premium_error.log",
+      "summary": "Privacy, premium restore surface and persistence failure recovery passed on iPhone 17 Pro simulator."
+    },
+    {
+      "command": "simctl install/launch/io screenshot",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence_refs": [
+        "evidence/simulator_launch.log",
+        "evidence/fresh_launch.png"
+      ],
+      "summary": "Fresh launch rendered the product-specific echo treatment and Create Your Promise CTA at 1206x2622."
+    }
+  ],
+  "requirement_results": [
+    {
+      "requirement_id": "REQ-CORE-001",
+      "status": "implemented",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "Implemented in the reachable native SwiftUI flow and covered by source/unit/UI evidence appropriate to the rough package."
+    },
+    {
+      "requirement_id": "REQ-CRUD-001",
+      "status": "implemented",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "Implemented in the reachable native SwiftUI flow and covered by source/unit/UI evidence appropriate to the rough package."
+    },
+    {
+      "requirement_id": "REQ-PERSIST-001",
+      "status": "implemented",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "Implemented in the reachable native SwiftUI flow and covered by source/unit/UI evidence appropriate to the rough package."
+    },
+    {
+      "requirement_id": "REQ-VIS-001",
+      "status": "implemented",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "Implemented in the reachable native SwiftUI flow and covered by source/unit/UI evidence appropriate to the rough package."
+    },
+    {
+      "requirement_id": "REQ-EMPTY-001",
+      "status": "implemented",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "Implemented in the reachable native SwiftUI flow and covered by source/unit/UI evidence appropriate to the rough package."
+    },
+    {
+      "requirement_id": "REQ-ERROR-001",
+      "status": "implemented",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "Implemented in the reachable native SwiftUI flow and covered by source/unit/UI evidence appropriate to the rough package."
+    },
+    {
+      "requirement_id": "REQ-PRIVACY-001",
+      "status": "partial",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "Local-only architecture and privacy screen are verified; live notification denial flow remains for FinalGate."
+    },
+    {
+      "requirement_id": "REQ-PREMIUM-001",
+      "status": "partial",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "StoreKit 2 purchase/restore source and local StoreKit configuration are present; App Store Connect sandbox transaction evidence remains for FinalGate/full rewrite."
+    },
+    {
+      "requirement_id": "REQ-LOCALE-001",
+      "status": "implemented",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "Implemented in the reachable native SwiftUI flow and covered by source/unit/UI evidence appropriate to the rough package."
+    },
+    {
+      "requirement_id": "REQ-A11Y-001",
+      "status": "partial",
+      "source_refs": [
+        "FutureEcho/",
+        "FutureEchoTests/BaselineTests.swift",
+        "FutureEchoUITests/BaselineUITests.swift"
+      ],
+      "test_refs": [
+        "evidence/swift_test.log",
+        "evidence/xcodebuild_ui_core_flow.log",
+        "evidence/xcodebuild_ui_privacy_premium_error.log"
+      ],
+      "notes": "VoiceOver labels, Dynamic Type, Reduce Motion branches and UI identifiers are implemented; manual VoiceOver traversal remains for FinalGate."
+    }
+  ],
+  "design_results": [
+    {
+      "design_id": "future-echo-visual-language",
+      "status": "implemented",
+      "evidence_refs": [
+        "FutureEcho/DesignSystem.swift",
+        "FutureEcho/PromiseViews.swift",
+        "evidence/fresh_launch.png"
+      ]
+    },
+    {
+      "design_id": "product-specific-empty-state",
+      "status": "implemented",
+      "evidence_refs": [
+        "FutureEcho/PromiseViews.swift",
+        "evidence/fresh_launch.png"
+      ]
+    },
+    {
+      "design_id": "en-us-metadata-and-copy",
+      "status": "implemented",
+      "evidence_refs": [
+        "FutureEcho/Resources/en.lproj/Localizable.strings",
+        "AppStoreMetadata/en-US.json"
+      ]
+    }
+  ],
+  "known_gaps": [
+    {
+      "code": "storekit_live_transaction_evidence_pending",
+      "scope": "REQ-PREMIUM-001",
+      "next_step": "FinalGate/full rewrite must run sandbox or equivalent transaction and restore evidence."
+    },
+    {
+      "code": "manual_voiceover_traversal_pending",
+      "scope": "REQ-A11Y-001",
+      "next_step": "FinalGate must record a manual VoiceOver traversal and Reduce Motion readback."
+    },
+    {
+      "code": "notification_denial_runtime_pending",
+      "scope": "REQ-PRIVACY-001",
+      "next_step": "FinalGate must verify denial fallback without blocking the core flow."
+    }
+  ],
+  "completion_decision": "rough_built"
+}
