@@ -151,6 +151,25 @@ final class BaselineUITests: XCTestCase {
         XCTAssertTrue(app.buttons["shelf.card"].waitForExistence(timeout: 5))
     }
 
+    func testStatusNoticeReservesVerticalSpaceForPopulatedHorizonAndShelf() {
+        let app = launch(reset: true)
+        createPromise(in: app)
+        assertStatusNoticeDoesNotOverlap(
+            element("horizon.title", in: app),
+            named: "populated-horizon",
+            in: app
+        )
+
+        createCoolingCard(in: app)
+        app.tabBars.buttons["Shelf"].tap()
+        XCTAssertTrue(app.buttons["shelf.card"].waitForExistence(timeout: 5))
+        assertStatusNoticeDoesNotOverlap(
+            app.staticTexts["Decisions still in motion"],
+            named: "populated-shelf",
+            in: app
+        )
+    }
+
     private func launch(reset: Bool, additionalArguments: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = (reset ? ["-forceJSONStore", "-resetStore"] : ["-forceJSONStore"]) + additionalArguments
@@ -185,6 +204,26 @@ final class BaselineUITests: XCTestCase {
             element.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: existing.count))
         }
         element.typeText(value)
+    }
+
+    private func assertStatusNoticeDoesNotOverlap(
+        _ title: XCUIElement,
+        named name: String,
+        in app: XCUIApplication
+    ) {
+        let notice = app.staticTexts["inline.notice"]
+        XCTAssertTrue(notice.waitForExistence(timeout: 5))
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        XCTAssertLessThanOrEqual(
+            notice.frame.maxY,
+            title.frame.minY,
+            "The visible status notice must reserve vertical space above the \(name) heading."
+        )
+
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        add(attachment)
     }
 
     private func element(_ identifier: String, in app: XCUIApplication) -> XCUIElement {

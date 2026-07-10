@@ -35,21 +35,24 @@ struct FutureEchoRootView: View {
     var body: some View {
         ZStack {
             EchoBackground()
-            TabView(selection: $selectedTab) {
-                PromiseHorizonView(sheet: $sheet, selectedTab: $selectedTab)
-                    .tabItem { Label("Horizon", systemImage: "sun.horizon") }
-                    .tag(EchoTab.horizon)
-                CoolingShelfView(sheet: $sheet)
-                    .tabItem { Label("Shelf", systemImage: "hourglass") }
-                    .tag(EchoTab.shelf)
-                EchoTrailView(sheet: $sheet)
-                    .tabItem { Label("Trail", systemImage: "point.3.connected.trianglepath.dotted") }
-                    .tag(EchoTab.trail)
-                SettingsView(sheet: $sheet)
-                    .tabItem { Label("Settings", systemImage: "gearshape") }
-                    .tag(EchoTab.settings)
+            VStack(spacing: 0) {
+                statusNotice
+                TabView(selection: $selectedTab) {
+                    PromiseHorizonView(sheet: $sheet, selectedTab: $selectedTab)
+                        .tabItem { Label("Horizon", systemImage: "sun.horizon") }
+                        .tag(EchoTab.horizon)
+                    CoolingShelfView(sheet: $sheet)
+                        .tabItem { Label("Shelf", systemImage: "hourglass") }
+                        .tag(EchoTab.shelf)
+                    EchoTrailView(sheet: $sheet)
+                        .tabItem { Label("Trail", systemImage: "point.3.connected.trianglepath.dotted") }
+                        .tag(EchoTab.trail)
+                    SettingsView(sheet: $sheet)
+                        .tabItem { Label("Settings", systemImage: "gearshape") }
+                        .tag(EchoTab.settings)
+                }
+                .accentColor(EchoPalette.coral)
             }
-            .accentColor(EchoPalette.coral)
         }
         .sheet(item: $sheet) { destination in
             NavigationView {
@@ -58,12 +61,6 @@ struct FutureEchoRootView: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .environmentObject(store)
         }
-        .overlay(
-            VStack(spacing: 0) {
-                statusOverlay
-                Spacer(minLength: 0)
-            }
-        )
     }
 
     @ViewBuilder
@@ -85,7 +82,7 @@ struct FutureEchoRootView: View {
     }
 
     @ViewBuilder
-    private var statusOverlay: some View {
+    private var statusNotice: some View {
         if let error = store.errorMessage {
             InlineNoticeView(message: error, isError: true)
                 .padding(.horizontal, 16)
