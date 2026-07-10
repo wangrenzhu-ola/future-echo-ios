@@ -133,6 +133,7 @@ final class BaselineTests: XCTestCase {
         XCTAssertEqual(product.displayName, "Future Echo Plus")
         XCTAssertFalse(product.description.isEmpty)
         XCTAssertFalse(product.displayPrice.isEmpty)
+        XCTAssertEqual(product.type, .nonConsumable)
         let unavailableProducts = try await Product.products(for: ["com.wangrenzhu.futureecho.missing"])
         XCTAssertTrue(unavailableProducts.isEmpty)
 
