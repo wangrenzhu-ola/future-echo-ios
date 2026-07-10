@@ -63,6 +63,9 @@ final class BaselineUITests: XCTestCase {
         app.buttons["Close"].tap()
         app.buttons["settings.future-echo-plus"].tap()
         XCTAssertTrue(element("premium.screen", in: app).waitForExistence(timeout: 5))
+        XCTAssertTrue(element("premium.productName", in: app).waitForExistence(timeout: 5))
+        XCTAssertTrue(element("premium.productDescription", in: app).exists)
+        XCTAssertTrue(element("premium.productPrice", in: app).exists)
         XCTAssertTrue(app.buttons["premium.restore"].exists)
         app.buttons["Close"].tap()
 

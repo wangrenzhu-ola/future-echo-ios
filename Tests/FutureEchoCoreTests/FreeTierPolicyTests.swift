@@ -3,10 +3,12 @@ import XCTest
 
 final class FreeTierPolicyTests: XCTestCase {
     func testFreeTierKeepsTheCoreLoopAvailable() {
-        XCTAssertTrue(FreeTierPolicy.canCreatePromise(currentCount: 0, isPlus: false))
-        XCTAssertTrue(FreeTierPolicy.canCreateCoolingCard(activeCount: 2, isPlus: false))
-        XCTAssertFalse(FreeTierPolicy.canCreateCoolingCard(activeCount: 3, isPlus: false))
-        XCTAssertTrue(FreeTierPolicy.canCreateCoolingCard(activeCount: 3, isPlus: true))
+        for isPlus in [false, true] {
+            XCTAssertTrue(FreeTierPolicy.canCreatePromise(currentCount: 0, isPlus: isPlus))
+            XCTAssertTrue(FreeTierPolicy.canCreatePromise(currentCount: 100, isPlus: isPlus))
+            XCTAssertTrue(FreeTierPolicy.canCreateCoolingCard(activeCount: 3, isPlus: isPlus))
+            XCTAssertTrue(FreeTierPolicy.canCreateCoolingCard(activeCount: 100, isPlus: isPlus))
+        }
     }
 
     func testFreeTrailShowsTenMostRecentOutcomes() {
@@ -31,5 +33,6 @@ final class FreeTierPolicyTests: XCTestCase {
         XCTAssertEqual(visible.count, 10)
         XCTAssertEqual(visible.first?.amount, Decimal(12))
         XCTAssertEqual(visible.last?.amount, Decimal(3))
+        XCTAssertEqual(FreeTierPolicy.visibleOutcomes(from: outcomes, isPlus: true).count, 12)
     }
 }

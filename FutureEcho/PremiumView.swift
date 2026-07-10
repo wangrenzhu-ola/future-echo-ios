@@ -20,6 +20,10 @@ struct PremiumView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
                 PremiumHero()
+                if let product = premiumStore.product {
+                    PremiumProductDetails(product: product)
+                        .settingsCard()
+                }
                 VStack(alignment: .leading, spacing: 12) {
                     PremiumBenefit(symbol: "paintpalette", text: "Four calm echo themes for your Promise Horizon and Pause Chamber")
                     PremiumBenefit(symbol: "point.3.connected.trianglepath.dotted", text: "Unlimited visible Echo Trail history on this device")
@@ -59,9 +63,7 @@ struct PremiumView: View {
         .onAppear {
             Task {
                 await premiumStore.load()
-                if premiumStore.state == .purchased {
-                    _ = store.setPlusEntitled(true)
-                }
+                _ = store.setPlusEntitled(premiumStore.isEntitled)
             }
         }
     }
@@ -79,6 +81,28 @@ struct PremiumView: View {
             if await premiumStore.restore() {
                 _ = store.setPlusEntitled(true)
             }
+        }
+    }
+}
+
+private struct PremiumProductDetails: View {
+    let product: PremiumProduct
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(product.displayName)
+                .font(.headline)
+                .foregroundColor(.white)
+                .accessibilityIdentifier("premium.productName")
+            Text(product.productDescription)
+                .font(.subheadline)
+                .foregroundColor(.white.opacity(0.72))
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityIdentifier("premium.productDescription")
+            Text(product.displayPrice)
+                .font(.title3.weight(.semibold))
+                .foregroundColor(EchoPalette.mist)
+                .accessibilityIdentifier("premium.productPrice")
         }
     }
 }

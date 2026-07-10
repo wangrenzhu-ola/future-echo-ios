@@ -65,7 +65,7 @@ final class EchoStore: ObservableObject {
                 currentCount: updated.promises.count,
                 isPlus: updated.plusEntitled
             ) else {
-                errorMessage = "The free plan keeps one promise at a time. Edit this promise or unlock more themes and promises with Future Echo Plus."
+                errorMessage = "Couldn't create this promise. Try again."
                 return false
             }
             updated.promises.append(promise)
@@ -90,7 +90,7 @@ final class EchoStore: ObservableObject {
             activeCount: activeCount,
             isPlus: snapshot.plusEntitled
         ) else {
-            errorMessage = "The free plan can hold three active cooling cards. Finish or remove one before waiting on another."
+            errorMessage = "Couldn't create this cooling card. Try again."
             return false
         }
 

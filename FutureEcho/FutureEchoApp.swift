@@ -13,6 +13,12 @@ struct FutureEchoApp: App {
                 .environmentObject(premiumStore)
                 .environmentObject(notificationService)
                 .preferredColorScheme(.dark)
+                .onAppear {
+                    Task {
+                        await premiumStore.load()
+                        _ = store.setPlusEntitled(premiumStore.isEntitled)
+                    }
+                }
         }
     }
 }

@@ -19,7 +19,7 @@
     }
   ],
   "settings" : {
-    "_failTransactionsEnabled" : true,
+    "_failTransactionsEnabled" : false,
     "_locale" : "en_US",
     "_storefront" : "USA"
   },

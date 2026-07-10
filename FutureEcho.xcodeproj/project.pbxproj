@@ -18,6 +18,7 @@
 		33FBA64CD6B981B7F085E736 /* PromiseEditorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3350B3F9C0E94D8B0FA8CE94 /* PromiseEditorViews.swift */; };
 		39DFC38414260AFC2BE47755 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910D8BD451763C2765EC9A05 /* PrivacyView.swift */; };
 		3E999D0E1A2526F3A60C9385 /* SwiftDataPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E06B702F08F2B4A3B79B2E /* SwiftDataPersistence.swift */; };
+		421E6251A7E843FA9BB526FC /* FutureEcho.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 9FBA8E8A87CDE306446B7344 /* FutureEcho.storekit */; };
 		47D5E51D007A97DC0DC26DA2 /* EchoTrailViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E74277CC05596933CA619BF /* EchoTrailViews.swift */; };
 		4C3B34AD963818E9B958559B /* ShelfAndTrailViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C1C82326257C16036290A1 /* ShelfAndTrailViews.swift */; };
 		578384BB4985B10F52ACCCF3 /* SettingsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D689B41E6D5EC34B0A1DE0 /* SettingsViews.swift */; };
@@ -322,6 +323,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				421E6251A7E843FA9BB526FC /* FutureEcho.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

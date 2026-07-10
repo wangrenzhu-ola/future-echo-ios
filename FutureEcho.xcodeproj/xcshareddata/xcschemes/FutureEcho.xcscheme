@@ -59,7 +59,7 @@
          </TestableReference>
       </Testables>
 <StoreKitConfigurationFileReference
-   identifier = "../FutureEcho/StoreKit/FutureEcho.storekit">
+   identifier = "container:FutureEcho/StoreKit/FutureEcho.storekit">
 </StoreKitConfigurationFileReference>
    </TestAction>
    <LaunchAction
@@ -83,7 +83,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
 <StoreKitConfigurationFileReference
-   identifier = "../FutureEcho/StoreKit/FutureEcho.storekit">
+   identifier = "container:FutureEcho/StoreKit/FutureEcho.storekit">
 </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction

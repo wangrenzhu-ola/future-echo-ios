@@ -2,22 +2,34 @@ import Foundation
 import StoreKit
 
 protocol PremiumPurchasing: AnyObject {
-    func load() async throws -> String?
+    func load() async throws -> PremiumLoadResult
     func purchase() async throws -> PremiumPurchaseEvent
     func restore() async throws -> Bool
+}
+
+struct PremiumProduct: Equatable {
+    let displayName: String
+    let productDescription: String
+    let displayPrice: String
+}
+
+struct PremiumLoadResult: Equatable {
+    let product: PremiumProduct?
+    let isEntitled: Bool
 }
 
 enum PremiumPurchaseEvent {
     case purchased
     case pending
     case cancelled
+    case unverified
 }
 
 @MainActor
 final class PremiumStore: ObservableObject {
     enum State: Equatable {
         case loading
-        case ready(price: String)
+        case ready
         case purchasing
         case purchased
         case pending
@@ -28,7 +40,7 @@ final class PremiumStore: ObservableObject {
         var message: String {
             switch self {
             case .loading: return "Checking Future Echo Plus…"
-            case .ready(let price): return "Unlock once for \(price)."
+            case .ready: return "Ready to unlock once."
             case .purchasing: return "Completing your purchase…"
             case .purchased: return "Future Echo Plus is active."
             case .pending: return "Your purchase is pending approval. The core pause remains available."
@@ -42,6 +54,8 @@ final class PremiumStore: ObservableObject {
     static let productID = "com.wangrenzhu.futureecho.plus"
 
     @Published private(set) var state: State = .loading
+    @Published private(set) var product: PremiumProduct?
+    @Published private(set) var isEntitled = false
 
     private var client: (any PremiumPurchasing)?
 
@@ -62,12 +76,12 @@ final class PremiumStore: ObservableObject {
             return
         }
         do {
-            guard let price = try await client.load() else {
-                state = .unavailable
-                return
-            }
-            state = .ready(price: price)
+            let result = try await client.load()
+            product = result.product
+            isEntitled = result.isEntitled
+            state = result.isEntitled ? .purchased : (result.product == nil ? .unavailable : .ready)
         } catch {
+            isEntitled = false
             state = .unavailable
         }
     }
@@ -81,12 +95,15 @@ final class PremiumStore: ObservableObject {
         do {
             switch try await client.purchase() {
             case .purchased:
+                isEntitled = true
                 state = .purchased
                 return true
             case .pending:
                 state = .pending
             case .cancelled:
                 state = .cancelled
+            case .unverified:
+                state = .failed("The purchase couldn't be verified. Nothing changed.")
             }
         } catch {
             state = .failed("Purchase couldn't be completed. Try again.")
@@ -101,6 +118,7 @@ final class PremiumStore: ObservableObject {
         }
         do {
             let restored = try await client.restore()
+            isEntitled = restored
             state = restored ? .purchased : .failed("No previous Future Echo Plus purchase was found.")
             return restored
         } catch {
@@ -119,10 +137,20 @@ private actor StoreKitClient: PremiumPurchasing {
         self.productID = productID
     }
 
-    func load() async throws -> String? {
+    func load() async throws -> PremiumLoadResult {
         let products = try await Product.products(for: [productID])
         product = products.first
-        return product?.displayPrice
+        let premiumProduct = product.map {
+            PremiumProduct(
+                displayName: $0.displayName,
+                productDescription: $0.description,
+                displayPrice: $0.displayPrice
+            )
+        }
+        return PremiumLoadResult(
+            product: premiumProduct,
+            isEntitled: await hasCurrentEntitlement()
+        )
     }
 
     func purchase() async throws -> PremiumPurchaseEvent {
@@ -131,7 +159,7 @@ private actor StoreKitClient: PremiumPurchasing {
         case .success(let verification):
             let transaction = try verification.verifiedValue
             await transaction.finish()
-            return .purchased
+            return await hasCurrentEntitlement() ? .purchased : .unverified
         case .pending:
             return .pending
         case .userCancelled:

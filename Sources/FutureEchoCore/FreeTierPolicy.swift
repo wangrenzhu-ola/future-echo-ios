@@ -1,16 +1,14 @@
 import Foundation
 
 public enum FreeTierPolicy {
-    public static let promiseLimit = 1
-    public static let activeCoolingCardLimit = 3
     public static let visibleOutcomeLimit = 10
 
     public static func canCreatePromise(currentCount: Int, isPlus: Bool) -> Bool {
-        isPlus || currentCount < promiseLimit
+        true
     }
 
     public static func canCreateCoolingCard(activeCount: Int, isPlus: Bool) -> Bool {
-        isPlus || activeCount < activeCoolingCardLimit
+        true
     }
 
     public static func visibleOutcomes(
@@ -21,4 +19,3 @@ public enum FreeTierPolicy {
         return isPlus ? sorted : Array(sorted.prefix(visibleOutcomeLimit))
     }
 }
-
