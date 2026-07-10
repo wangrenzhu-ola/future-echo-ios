@@ -61,5 +61,22 @@ public enum EchoFormatters {
         formatter.minimumFractionDigits = 0
         return formatter.string(from: NSDecimalNumber(decimal: value)) ?? "0"
     }
-}
 
+    public static func revisitTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+
+    public static func input(_ value: Decimal) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
+        formatter.usesGroupingSeparator = false
+        return formatter.string(from: NSDecimalNumber(decimal: value)) ?? ""
+    }
+}

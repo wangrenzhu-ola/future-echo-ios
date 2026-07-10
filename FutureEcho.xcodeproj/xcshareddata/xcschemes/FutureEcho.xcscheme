@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6023A512907D60849D8B0E31"
+               BlueprintIdentifier = "F6BAA6BD80CD960A542EE5C4"
                BuildableName = "FutureEcho.app"
                BlueprintName = "FutureEcho"
                ReferencedContainer = "container:FutureEcho.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6023A512907D60849D8B0E31"
+            BlueprintIdentifier = "F6BAA6BD80CD960A542EE5C4"
             BuildableName = "FutureEcho.app"
             BlueprintName = "FutureEcho"
             ReferencedContainer = "container:FutureEcho.xcodeproj">
@@ -41,7 +41,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6DAB96757CF4B4DAF7D46C77"
+               BlueprintIdentifier = "1FE189A9CE9B09E6D602A235"
                BuildableName = "FutureEchoTests.xctest"
                BlueprintName = "FutureEchoTests"
                ReferencedContainer = "container:FutureEcho.xcodeproj">
@@ -51,7 +51,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4823C1121E7BF62FBC96EBFD"
+               BlueprintIdentifier = "55A9B15C1CEC2D2D325D1F06"
                BuildableName = "FutureEchoUITests.xctest"
                BlueprintName = "FutureEchoUITests"
                ReferencedContainer = "container:FutureEcho.xcodeproj">
@@ -73,7 +73,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6023A512907D60849D8B0E31"
+            BlueprintIdentifier = "F6BAA6BD80CD960A542EE5C4"
             BuildableName = "FutureEcho.app"
             BlueprintName = "FutureEcho"
             ReferencedContainer = "container:FutureEcho.xcodeproj">
@@ -90,7 +90,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6023A512907D60849D8B0E31"
+            BlueprintIdentifier = "F6BAA6BD80CD960A542EE5C4"
             BuildableName = "FutureEcho.app"
             BlueprintName = "FutureEcho"
             ReferencedContainer = "container:FutureEcho.xcodeproj">
