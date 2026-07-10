@@ -1,0 +1,10 @@
+{
+  "locale": "en-US",
+  "name": "Future Echo",
+  "subtitle": "Pause before an impulse purchase",
+  "promotional_text": "Compare a purchase moment with a savings promise you chose, then Wait, Skip, or Keep without shame or scoring.",
+  "description": "Future Echo creates a quiet, private pause before an unplanned purchase. Set one savings promise, enter the amount in front of you, and see a simple on-device comparison. A twelve-second echo gives you space to choose Wait 24 Hours, Skip Purchase, or Keep Purchase. Waiting creates a Cooling Card you can revisit later. Your Echo Trail records decisions without claiming that skipped money entered a real savings account. Purchase context stays on your device. Future Echo does not connect to a bank, execute payments, or provide financial advice.",
+  "keywords": "impulse,pause,savings,decision,reflection,private,habit",
+  "privacy_policy_summary": "Promises, cooling cards, decisions, and preferences stay on this device. No login, bank connection, payment execution, advertising tracker, cloud AI, or financial advice.",
+  "support_url": "https://github.com/wangrenzhu-ola/future-echo-ios"
+}

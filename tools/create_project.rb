@@ -42,10 +42,12 @@ app.build_configurations.each do |config|
 end
 
 unit.build_configurations.each do |config|
+  config.build_settings["GENERATE_INFOPLIST_FILE"] = "YES"
   config.build_settings["TEST_HOST"] = "$(BUILT_PRODUCTS_DIR)/Future Echo.app/Future Echo"
   config.build_settings["BUNDLE_LOADER"] = "$(TEST_HOST)"
 end
 ui.build_configurations.each do |config|
+  config.build_settings["GENERATE_INFOPLIST_FILE"] = "YES"
   config.build_settings["TEST_TARGET_NAME"] = "FutureEcho"
 end
 
@@ -67,7 +69,7 @@ add_sources(core_group, app, File.join(ROOT, "Sources/FutureEchoCore"))
 add_sources(unit_group, unit, File.join(ROOT, "FutureEchoTests"))
 add_sources(ui_group, ui, File.join(ROOT, "FutureEchoUITests"))
 
-["Assets.xcassets", "PrivacyInfo.xcprivacy", "Resources/en.lproj/Localizable.strings"].each do |relative|
+["Assets.xcassets", "PrivacyInfo.xcprivacy", "Resources/en.lproj/Localizable.strings", "StoreKit/FutureEcho.storekit"].each do |relative|
   ref = app_group.new_file(relative)
   app.resources_build_phase.add_file_reference(ref)
 end
@@ -79,4 +81,15 @@ scheme.set_launch_target(app)
 scheme.add_test_target(unit)
 scheme.add_test_target(ui)
 scheme.save_as(PROJECT_PATH, "FutureEcho", true)
+
+scheme_path = File.join(PROJECT_PATH, "xcshareddata", "xcschemes", "FutureEcho.xcscheme")
+scheme_xml = File.read(scheme_path)
+storekit_reference = <<~XML.chomp
+      <StoreKitConfigurationFileReference
+         identifier = "../FutureEcho/StoreKit/FutureEcho.storekit">
+      </StoreKitConfigurationFileReference>
+XML
+scheme_xml.sub!("   </TestAction>", "#{storekit_reference}\n   </TestAction>")
+scheme_xml.sub!("   </LaunchAction>", "#{storekit_reference}\n   </LaunchAction>")
+File.write(scheme_path, scheme_xml)
 puts PROJECT_PATH

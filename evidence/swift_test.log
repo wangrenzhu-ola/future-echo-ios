@@ -1,0 +1,57 @@
+[0/1] Planning build
+Building for debugging...
+[0/3] Write swift-version--58304C5D6DBC2206.txt
+[2/9] Compiling FutureEchoCore SwiftDataPersistence.swift
+[3/9] Compiling FutureEchoCore Persistence.swift
+[4/9] Compiling FutureEchoCore FreeTierPolicy.swift
+[5/9] Compiling FutureEchoCore OpportunityCost.swift
+[6/9] Compiling FutureEchoCore Models.swift
+[7/9] Emitting module FutureEchoCore
+[8/14] Compiling FutureEchoCoreTests SwiftDataPersistenceTests.swift
+[9/14] Emitting module FutureEchoCoreTests
+[10/14] Compiling FutureEchoCoreTests FreeTierPolicyTests.swift
+[11/14] Compiling FutureEchoCoreTests PersistenceTests.swift
+[12/14] Compiling FutureEchoCoreTests OpportunityCostTests.swift
+[13/16] Compiling FutureEchoCorePackageTests runner.swift
+[14/16] Emitting module FutureEchoCorePackageTests
+[14/16] Write Objects.LinkFileList
+[15/16] Linking FutureEchoCorePackageTests
+Build complete! (10.46s)
+Test Suite 'All tests' started at 2026-07-10 20:53:27.763.
+Test Suite 'FutureEchoCorePackageTests.xctest' started at 2026-07-10 20:53:27.766.
+Test Suite 'FreeTierPolicyTests' started at 2026-07-10 20:53:27.766.
+Test Case '-[FutureEchoCoreTests.FreeTierPolicyTests testFreeTierKeepsTheCoreLoopAvailable]' started.
+Test Case '-[FutureEchoCoreTests.FreeTierPolicyTests testFreeTierKeepsTheCoreLoopAvailable]' passed (0.001 seconds).
+Test Case '-[FutureEchoCoreTests.FreeTierPolicyTests testFreeTrailShowsTenMostRecentOutcomes]' started.
+Test Case '-[FutureEchoCoreTests.FreeTierPolicyTests testFreeTrailShowsTenMostRecentOutcomes]' passed (0.000 seconds).
+Test Suite 'FreeTierPolicyTests' passed at 2026-07-10 20:53:27.768.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'OpportunityCostTests' started at 2026-07-10 20:53:27.768.
+Test Case '-[FutureEchoCoreTests.OpportunityCostTests testAmountValidationRejectsZeroNegativeAndText]' started.
+Test Case '-[FutureEchoCoreTests.OpportunityCostTests testAmountValidationRejectsZeroNegativeAndText]' passed (0.001 seconds).
+Test Case '-[FutureEchoCoreTests.OpportunityCostTests testOpportunityCostUsesDecimalSemantics]' started.
+Test Case '-[FutureEchoCoreTests.OpportunityCostTests testOpportunityCostUsesDecimalSemantics]' passed (0.001 seconds).
+Test Case '-[FutureEchoCoreTests.OpportunityCostTests testSnapshotDoesNotChangeWhenPromiseChanges]' started.
+Test Case '-[FutureEchoCoreTests.OpportunityCostTests testSnapshotDoesNotChangeWhenPromiseChanges]' passed (0.000 seconds).
+Test Suite 'OpportunityCostTests' passed at 2026-07-10 20:53:27.770.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'PersistenceTests' started at 2026-07-10 20:53:27.770.
+Test Case '-[FutureEchoCoreTests.PersistenceTests testAllProductObjectsRoundTripAndConfirmedDeletionStaysDeleted]' started.
+Test Case '-[FutureEchoCoreTests.PersistenceTests testAllProductObjectsRoundTripAndConfirmedDeletionStaysDeleted]' passed (0.002 seconds).
+Test Case '-[FutureEchoCoreTests.PersistenceTests testSimulatedFailureDoesNotOverwriteExistingSnapshot]' started.
+Test Case '-[FutureEchoCoreTests.PersistenceTests testSimulatedFailureDoesNotOverwriteExistingSnapshot]' passed (0.001 seconds).
+Test Suite 'PersistenceTests' passed at 2026-07-10 20:53:27.773.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'SwiftDataPersistenceTests' started at 2026-07-10 20:53:27.773.
+Test Case '-[FutureEchoCoreTests.SwiftDataPersistenceTests testSnapshotRoundTripsThroughSwiftData]' started.
+Test Case '-[FutureEchoCoreTests.SwiftDataPersistenceTests testSnapshotRoundTripsThroughSwiftData]' passed (0.012 seconds).
+Test Suite 'SwiftDataPersistenceTests' passed at 2026-07-10 20:53:27.785.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.012 (0.012) seconds
+Test Suite 'FutureEchoCorePackageTests.xctest' passed at 2026-07-10 20:53:27.785.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.019 (0.019) seconds
+Test Suite 'All tests' passed at 2026-07-10 20:53:27.785.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.019 (0.022) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

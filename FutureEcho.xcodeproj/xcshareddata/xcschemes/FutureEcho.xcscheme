@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F6BAA6BD80CD960A542EE5C4"
+               BlueprintIdentifier = "73F6FFC113BA9F6017A2D77C"
                BuildableName = "FutureEcho.app"
                BlueprintName = "FutureEcho"
                ReferencedContainer = "container:FutureEcho.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F6BAA6BD80CD960A542EE5C4"
+            BlueprintIdentifier = "73F6FFC113BA9F6017A2D77C"
             BuildableName = "FutureEcho.app"
             BlueprintName = "FutureEcho"
             ReferencedContainer = "container:FutureEcho.xcodeproj">
@@ -41,7 +41,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FE189A9CE9B09E6D602A235"
+               BlueprintIdentifier = "F67657E9FFEB3A7705888A80"
                BuildableName = "FutureEchoTests.xctest"
                BlueprintName = "FutureEchoTests"
                ReferencedContainer = "container:FutureEcho.xcodeproj">
@@ -51,13 +51,16 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "55A9B15C1CEC2D2D325D1F06"
+               BlueprintIdentifier = "051A2F26F7AFF3B4165398F2"
                BuildableName = "FutureEchoUITests.xctest"
                BlueprintName = "FutureEchoUITests"
                ReferencedContainer = "container:FutureEcho.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+<StoreKitConfigurationFileReference
+   identifier = "../FutureEcho/StoreKit/FutureEcho.storekit">
+</StoreKitConfigurationFileReference>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -73,12 +76,15 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F6BAA6BD80CD960A542EE5C4"
+            BlueprintIdentifier = "73F6FFC113BA9F6017A2D77C"
             BuildableName = "FutureEcho.app"
             BlueprintName = "FutureEcho"
             ReferencedContainer = "container:FutureEcho.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+<StoreKitConfigurationFileReference
+   identifier = "../FutureEcho/StoreKit/FutureEcho.storekit">
+</StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -90,7 +96,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F6BAA6BD80CD960A542EE5C4"
+            BlueprintIdentifier = "73F6FFC113BA9F6017A2D77C"
             BuildableName = "FutureEcho.app"
             BlueprintName = "FutureEcho"
             ReferencedContainer = "container:FutureEcho.xcodeproj">

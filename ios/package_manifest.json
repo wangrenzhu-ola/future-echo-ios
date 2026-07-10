@@ -1,0 +1,15 @@
+{
+  "schema_version": "appfactory.ios_package_manifest.v1",
+  "product_name": "Future Echo",
+  "bundle_id": "com.wangrenzhu.futureecho",
+  "platform": "ios",
+  "implementation": "native_swiftui_in_swift",
+  "swift_language_version": "5.0",
+  "minimum_deployment_target": "14.0",
+  "app_locale": "en-US",
+  "xcode_project": "FutureEcho.xcodeproj",
+  "scheme": "FutureEcho",
+  "storekit_configuration": "FutureEcho/StoreKit/FutureEcho.storekit",
+  "privacy_manifest": "FutureEcho/PrivacyInfo.xcprivacy",
+  "app_store_metadata": "AppStoreMetadata/en-US.json"
+}

@@ -11,10 +11,13 @@ final class EchoStore: ObservableObject {
     private let repository: SnapshotRepository
 
     init(repository: SnapshotRepository? = nil) {
+        let launchArguments = ProcessInfo.processInfo.arguments
         if let repository {
             self.repository = repository
             persistenceKind = "injected"
         } else if #available(iOS 17.0, *),
+                  !launchArguments.contains("-forceJSONStore"),
+                  !launchArguments.contains("-simulatePersistenceFailure"),
                   let swiftDataRepository = try? SwiftDataSnapshotRepository() {
             self.repository = swiftDataRepository
             persistenceKind = "swiftdata"
@@ -26,11 +29,15 @@ final class EchoStore: ObservableObject {
             let fileURL = applicationSupport
                 .appendingPathComponent("FutureEcho", isDirectory: true)
                 .appendingPathComponent("snapshot.json")
-            self.repository = JSONSnapshotRepository(fileURL: fileURL)
-            persistenceKind = "json-fallback"
+            let simulateWriteFailure = launchArguments.contains("-simulatePersistenceFailure")
+            self.repository = JSONSnapshotRepository(
+                fileURL: fileURL,
+                simulateWriteFailure: simulateWriteFailure
+            )
+            persistenceKind = simulateWriteFailure ? "json-failure-injection" : "json-fallback"
         }
 
-        if ProcessInfo.processInfo.arguments.contains("-resetStore") {
+        if launchArguments.contains("-resetStore") {
             try? self.repository.reset()
         }
 

@@ -1,0 +1,31 @@
+{
+  "identifier" : "com.wangrenzhu.futureecho.storekit.local",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "future-echo-plus-unlock",
+      "localizations" : [
+        {
+          "description" : "Unlock additional calm echo themes and unlimited visible Echo Trail history. The complete promise, pause, wait, and revisit loop remains free.",
+          "displayName" : "Future Echo Plus",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.wangrenzhu.futureecho.plus",
+      "referenceName" : "Future Echo Plus Unlock",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : true,
+    "_locale" : "en_US",
+    "_storefront" : "USA"
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
