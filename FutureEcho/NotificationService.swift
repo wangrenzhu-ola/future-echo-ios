@@ -21,7 +21,20 @@ final class NotificationService: ObservableObject {
 
     @Published private(set) var permissionState: PermissionState = .idle
 
+    private let simulatesDeniedPermission: Bool
+
+    init() {
+        simulatesDeniedPermission = ProcessInfo.processInfo.arguments.contains("-simulateNotificationDenied")
+        if simulatesDeniedPermission {
+            permissionState = .denied
+        }
+    }
+
     func refresh() async {
+        guard !simulatesDeniedPermission else {
+            permissionState = .denied
+            return
+        }
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         switch settings.authorizationStatus {
         case .authorized, .provisional, .ephemeral:
@@ -36,6 +49,10 @@ final class NotificationService: ObservableObject {
     }
 
     func requestPermission() async -> Bool {
+        guard !simulatesDeniedPermission else {
+            permissionState = .denied
+            return false
+        }
         do {
             let allowed = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
             permissionState = allowed ? .authorized : .denied

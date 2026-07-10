@@ -79,9 +79,81 @@ final class BaselineUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Couldn't save your decision. Try again or choose Save Later."].exists)
     }
 
-    private func launch(reset: Bool) -> XCUIApplication {
+    func testPromiseAndCoolingCardCRUDPreserveObjectsUntilDeletionIsConfirmed() {
+        let app = launch(reset: true)
+        createPromise(in: app)
+
+        app.buttons["horizon.editPromise"].tap()
+        replaceText(in: app.textFields["field.promise-name"], with: "Rainy Day Fund")
+        app.buttons["promise.save"].tap()
+        XCTAssertTrue(app.staticTexts["Rainy Day Fund"].waitForExistence(timeout: 5))
+
+        createCoolingCard(in: app)
+        app.tabBars.buttons["Shelf"].tap()
+        XCTAssertTrue(app.buttons["shelf.card"].waitForExistence(timeout: 6))
+        app.buttons["shelf.card"].tap()
+        app.buttons["cooling.delete"].tap()
+        app.alerts.buttons["Cancel"].tap()
+        XCTAssertTrue(app.buttons["cooling.delete"].exists)
+        app.buttons["cooling.delete"].tap()
+        app.alerts.buttons["Delete"].tap()
+        XCTAssertTrue(element("shelf.empty", in: app).waitForExistence(timeout: 5))
+
+        app.tabBars.buttons["Horizon"].tap()
+        app.buttons["horizon.editPromise"].tap()
+        app.buttons["promise.delete"].tap()
+        app.alerts.buttons["Cancel"].tap()
+        XCTAssertTrue(app.buttons["promise.delete"].exists)
+        app.buttons["promise.delete"].tap()
+        app.alerts.buttons["Delete"].tap()
+        XCTAssertTrue(app.buttons["horizon.createPromise"].waitForExistence(timeout: 5))
+    }
+
+    func testAllDomainEmptyStatesOfferReachableNextActions() {
+        let app = launch(reset: true)
+        XCTAssertTrue(app.buttons["horizon.createPromise"].waitForExistence(timeout: 5))
+
+        app.tabBars.buttons["Shelf"].tap()
+        XCTAssertTrue(element("shelf.empty", in: app).waitForExistence(timeout: 5))
+        app.buttons["shelf.emptyAction"].tap()
+        XCTAssertTrue(app.buttons["promise.save"].waitForExistence(timeout: 5))
+        app.buttons["Cancel"].tap()
+
+        app.tabBars.buttons["Trail"].tap()
+        XCTAssertTrue(element("trail.empty", in: app).waitForExistence(timeout: 5))
+        app.buttons["trail.emptyAction"].tap()
+        XCTAssertTrue(app.buttons["promise.save"].waitForExistence(timeout: 5))
+        app.buttons["Cancel"].tap()
+
+        app.tabBars.buttons["Horizon"].tap()
+        createPromise(in: app)
+        app.tabBars.buttons["Trail"].tap()
+        app.buttons["trail.emptyAction"].tap()
+        XCTAssertTrue(app.textFields["echo.amount"].waitForExistence(timeout: 5))
+    }
+
+    func testNotificationDenialKeepsTheManualCoolingShelfFlowAvailable() {
+        let app = launch(reset: true, additionalArguments: ["-simulateNotificationDenied"])
+        app.tabBars.buttons["Settings"].tap()
+        XCTAssertTrue(element("settings.notifications", in: app).waitForExistence(timeout: 5))
+        let reminders = app.switches["Optional revisit reminders"]
+        XCTAssertTrue(reminders.exists)
+        reminders.tap()
+        XCTAssertTrue(
+            app.staticTexts["Notifications are off. Your Cooling Shelf remains the manual place to revisit."]
+                .waitForExistence(timeout: 5)
+        )
+
+        app.tabBars.buttons["Horizon"].tap()
+        createPromise(in: app)
+        createCoolingCard(in: app)
+        app.tabBars.buttons["Shelf"].tap()
+        XCTAssertTrue(app.buttons["shelf.card"].waitForExistence(timeout: 5))
+    }
+
+    private func launch(reset: Bool, additionalArguments: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments = reset ? ["-forceJSONStore", "-resetStore"] : ["-forceJSONStore"]
+        app.launchArguments = (reset ? ["-forceJSONStore", "-resetStore"] : ["-forceJSONStore"]) + additionalArguments
         app.launch()
         return app
     }
@@ -94,6 +166,16 @@ final class BaselineUITests: XCTestCase {
         replaceText(in: app.textFields["field.planned-deposit-(optional)"], with: "32")
         app.buttons["promise.save"].tap()
         XCTAssertTrue(app.buttons["horizon.newEcho"].waitForExistence(timeout: 5))
+    }
+
+    private func createCoolingCard(in app: XCUIApplication) {
+        app.buttons["horizon.newEcho"].tap()
+        replaceText(in: app.textFields["echo.amount"], with: "128")
+        app.buttons["echo.enterPause"].tap()
+        XCTAssertTrue(app.buttons["pause.skip"].waitForExistence(timeout: 4))
+        app.buttons["pause.skip"].tap()
+        XCTAssertTrue(app.buttons["decision.wait-24-hours"].waitForExistence(timeout: 4))
+        app.buttons["decision.wait-24-hours"].tap()
     }
 
     private func replaceText(in element: XCUIElement, with value: String) {

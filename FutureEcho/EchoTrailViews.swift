@@ -14,7 +14,7 @@ struct EchoTrailView: View {
                         detail: "Skipped amounts are decisions, not deposits into a real account."
                     )
                     if store.outcomes.isEmpty {
-                        TrailEmptyView()
+                        TrailEmptyView(action: emptyAction)
                     } else {
                         if !store.snapshot.plusEntitled {
                             Text("The free trail keeps your 10 most recent outcomes visible. Future Echo Plus expands history without changing the core pause.")
@@ -33,22 +33,31 @@ struct EchoTrailView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
+
+    private func emptyAction() {
+        sheet = store.promises.isEmpty ? .promiseEditor(nil) : .newEcho
+    }
 }
 
 private struct TrailEmptyView: View {
+    let action: () -> Void
+
     var body: some View {
         VStack(spacing: 14) {
             EmptyEchoIllustration(accent: EchoPalette.mist)
             Text("No decisions recorded yet.")
                 .font(.title3.weight(.semibold))
                 .foregroundColor(.white)
+                .accessibilityIdentifier("trail.empty")
             Text("Finish an echo with Skip Purchase or Keep Purchase. Your Trail stays private on this device.")
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white.opacity(0.62))
+            Button("Start an Echo", action: action)
+                .buttonStyle(PrimaryEchoButtonStyle(color: EchoPalette.mist))
+                .accessibilityIdentifier("trail.emptyAction")
         }
         .frame(maxWidth: .infinity)
         .padding(22)
-        .accessibilityIdentifier("trail.empty")
     }
 }
 

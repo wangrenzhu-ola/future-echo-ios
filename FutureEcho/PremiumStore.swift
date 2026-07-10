@@ -1,6 +1,18 @@
 import Foundation
 import StoreKit
 
+protocol PremiumPurchasing: AnyObject {
+    func load() async throws -> String?
+    func purchase() async throws -> PremiumPurchaseEvent
+    func restore() async throws -> Bool
+}
+
+enum PremiumPurchaseEvent {
+    case purchased
+    case pending
+    case cancelled
+}
+
 @MainActor
 final class PremiumStore: ObservableObject {
     enum State: Equatable {
@@ -31,17 +43,26 @@ final class PremiumStore: ObservableObject {
 
     @Published private(set) var state: State = .loading
 
-    private var client: Any?
+    private var client: (any PremiumPurchasing)?
+
+    init(client: (any PremiumPurchasing)? = nil) {
+        self.client = client
+    }
 
     func load() async {
-        guard #available(iOS 15.0, *) else {
+        if client == nil {
+            guard #available(iOS 15.0, *) else {
+                state = .unavailable
+                return
+            }
+            client = StoreKitClient(productID: Self.productID)
+        }
+        guard let client else {
             state = .unavailable
             return
         }
-        let storeKitClient = StoreKitClient(productID: Self.productID)
-        client = storeKitClient
         do {
-            guard let price = try await storeKitClient.load() else {
+            guard let price = try await client.load() else {
                 state = .unavailable
                 return
             }
@@ -52,7 +73,7 @@ final class PremiumStore: ObservableObject {
     }
 
     func purchase() async -> Bool {
-        guard #available(iOS 15.0, *), let client = client as? StoreKitClient else {
+        guard let client else {
             state = .unavailable
             return false
         }
@@ -74,13 +95,12 @@ final class PremiumStore: ObservableObject {
     }
 
     func restore() async -> Bool {
-        guard #available(iOS 15.0, *), let client = client as? StoreKitClient else {
+        guard let client else {
             state = .unavailable
             return false
         }
         do {
-            try await AppStore.sync()
-            let restored = await client.hasCurrentEntitlement()
+            let restored = try await client.restore()
             state = restored ? .purchased : .failed("No previous Future Echo Plus purchase was found.")
             return restored
         } catch {
@@ -91,13 +111,7 @@ final class PremiumStore: ObservableObject {
 }
 
 @available(iOS 15.0, *)
-private actor StoreKitClient {
-    enum PurchaseEvent {
-        case purchased
-        case pending
-        case cancelled
-    }
-
+private actor StoreKitClient: PremiumPurchasing {
     private let productID: String
     private var product: Product?
 
@@ -111,7 +125,7 @@ private actor StoreKitClient {
         return product?.displayPrice
     }
 
-    func purchase() async throws -> PurchaseEvent {
+    func purchase() async throws -> PremiumPurchaseEvent {
         guard let product else { throw StoreKitError.productUnavailable }
         switch try await product.purchase() {
         case .success(let verification):
@@ -136,6 +150,11 @@ private actor StoreKitClient {
             }
         }
         return false
+    }
+
+    func restore() async throws -> Bool {
+        try await AppStore.sync()
+        return await hasCurrentEntitlement()
     }
 }
 

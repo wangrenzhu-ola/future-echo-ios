@@ -45,6 +45,7 @@ private struct CoolingEmptyView: View {
             Text("Your next pause will rest here.")
                 .font(.system(.title3, design: .rounded).weight(.semibold))
                 .foregroundColor(.white)
+                .accessibilityIdentifier("shelf.empty")
             Text("Choose Wait 24 Hours after a pause to create a cooling card.")
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white.opacity(0.62))
@@ -58,7 +59,6 @@ private struct CoolingEmptyView: View {
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(Color.white.opacity(0.06))
         )
-        .accessibilityIdentifier("shelf.empty")
     }
 }
 
